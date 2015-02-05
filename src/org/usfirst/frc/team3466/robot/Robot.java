@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.buttons.*;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Robot3466 extends IterativeRobot {
+public class Robot extends IterativeRobot {
 	NTDrive ntDrive;
 	RakeArm rakeArm;
 	Carriage carriage;

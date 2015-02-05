@@ -8,8 +8,8 @@ public class PortDefinitions {
 	
 	public static final int JSbuttonCarrUp = 1;
 	public static final int JSbuttonCarrDn = 2;
-	public static final int JSbuttonRakeUp = 1;
-	public static final int JSbuttonRakeDn = 2;
+	public static final int JSbuttonRakeUp = 3;
+	public static final int JSbuttonRakeDn = 4;
 
 	// INPUTS - roboRIO Digital I/O channels
 	public static final int CSconfifSwitch3 = 9;  // Robot SW configuration switches

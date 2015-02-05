@@ -3,6 +3,7 @@ package org.usfirst.frc.team3466.robot;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import org.usfirst.frc.team3466.robot.PortDefinitions;
 
 public class RakeArm extends Subsystem{
 	
@@ -23,6 +24,7 @@ public class RakeArm extends Subsystem{
 		rakeDetBtm = new DigitalInput(PortDefinitions.RakeDetBtmChannel);		
 	}
 	public void init() {
+	while(!rakeDetBtm.get())
 		moveDn();
 	}
 	
@@ -31,7 +33,7 @@ public class RakeArm extends Subsystem{
     	if (!rakeDetTop.get()) 
     		motor.set(max_motor_speed);
     	else
-    		motor.set(0);
+    		motor.stopMotor();
     }
     
 	public void moveDn()
@@ -39,11 +41,10 @@ public class RakeArm extends Subsystem{
     	if (!rakeDetTop.get()) 
     		motor.set(-max_motor_speed);
     	else
-    		motor.set(0);
+    		motor.stopMotor();
     }
 	public void stop() {
-		motor.set(0);
-		motor.set(0);
+		motor.stopMotor();
 	}
 	@Override
 	protected void initDefaultCommand() { }	

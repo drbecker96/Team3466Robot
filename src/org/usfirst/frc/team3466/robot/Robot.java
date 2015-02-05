@@ -43,12 +43,12 @@ public class Robot extends IterativeRobot {
 //    	myRobot.setExpiration(0.1); - TODO - is this necessary?
     	
     	leftStick = new Joystick(PortDefinitions.JoyStickLeftStick);
-    	rightStick = new Joystick(PortDefinitions.JoyStickRightStick);
+    	//rightStick = new Joystick(PortDefinitions.JoyStickRightStick);
 
     	buttonCarrUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrUp);
     	buttonCarrDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrDn);
-    	buttonRakeUp = new JoystickButton(rightStick, PortDefinitions.JSbuttonRakeUp);
-    	buttonRakeDn = new JoystickButton(rightStick, PortDefinitions.JSbuttonRakeDn);
+    	buttonRakeUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeUp);
+    	buttonRakeDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeDn);
     	
     	RakeArm rakeArm = new RakeArm();
     	rakeArm.init();
@@ -124,7 +124,9 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.tankDrive(-leftStick.getY(), rightStick.getY());     
+        	myRobot.arcadeDrive(-leftStick.getY(), -leftStick.getX()); 
+        	System.out.println(" "+leftStick.getY()+" :Y-Axis "+leftStick.getX()+" :X-Axis");
+
         }
         if (buttonCarrUp.get()){ 
         	carriage.moveUp();
@@ -132,8 +134,8 @@ public class Robot extends IterativeRobot {
         else if (buttonCarrDn.get()){
         	carriage.moveDn();
         }
-        else{
-        	//carriage.stop();
+        else if(!buttonCarrUp.get()&&!buttonCarrDn.get()){
+        	//carriage.stop(); //Unknown Errors: nullPointer Exception
         }
 
         if (buttonRakeUp.get()){
@@ -143,8 +145,8 @@ public class Robot extends IterativeRobot {
         	
         	rakeArm.moveDn();
         }
-        else{
-        	//rakeArm.stop();
+        else if(!buttonRakeUp.get() && !buttonRakeDn.get() ){
+        	//rakeArm.stop(); //Unknown Errors: nullPointer Exception
         }
     } // end teleopPeriodic
 
@@ -153,5 +155,37 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	System.out.println("We dont need no stinkin' test! - Our machine just works");
-    }    
+    	if (isOperatorControl() && isEnabled()) {
+        	// Set the motor's output.
+        	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
+        	myRobot.tankDrive(-leftStick.getY(), -rightStick.getY()); 
+        	System.out.println(" "+-leftStick.getY()+" :Left "+-rightStick.getY()+" :Right");
+        }
+        if (buttonCarrUp.get()){ 
+        	carriage.moveUp();
+        }
+        else if (buttonCarrDn.get()){
+        	carriage.moveDn();
+        }
+        else if(!buttonCarrUp.get()&&!buttonCarrDn.get()){
+        	//carriage.stop(); //Unknown Errors: nullPointer Exception
+        }
+
+        if (buttonRakeUp.get()){
+        	rakeArm.moveUp();
+        }
+        else if (buttonRakeDn.get()){
+        	
+        	rakeArm.moveDn();
+        }
+        else if(!buttonRakeUp.get()&&!buttonRakeDn.get()){
+        	//rakeArm.stop(); //Unknown Errors: nullPointer Exception
+        } 
+        // end teleopPeriodic
+
+    /**
+     * This function is called periodically during test mode
+     */
+    } 
+    
 }

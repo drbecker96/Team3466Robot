@@ -3,6 +3,7 @@ package org.usfirst.frc.team3466.robot;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.DigitalInput;
+import org.usfirst.frc.team3466.robot.PortDefinitions;
 
 public class Carriage extends Subsystem {
 
@@ -23,22 +24,23 @@ public class Carriage extends Subsystem {
  	}
 	
 	public void init() {
+	while(!carrDetBtm.get())
 		moveDn();
 	}
 	public void moveUp() {
     	if (!carrDetTop.get()) 
     		motor.set(max_motor_speed);
     	else
-    		motor.set(0);
+    		motor.stopMotor();
 	}
 	public void moveDn() {
     	if (!carrDetBtm.get()) 
     		motor.set(-max_motor_speed);
     	else
-    		motor.set(0);
+    		motor.stopMotor();
 	}
 	public void stop() {
-		motor.set(0);
+		motor.stopMotor();
 	}
 
 	@Override

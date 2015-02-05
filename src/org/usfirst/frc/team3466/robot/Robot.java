@@ -3,6 +3,7 @@ package org.usfirst.frc.team3466.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.*;
+import org.usfirst.frc.team3466.robot.*;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -123,21 +124,28 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	ntDrive.setLR(leftStick.getY(), rightStick.getY());     
+        	myRobot.tankDrive(-leftStick.getY(), rightStick.getY());     
         }
-        if (buttonCarrUp.get()) 
+        if (buttonCarrUp.get()){ 
         	carriage.moveUp();
-        else if (buttonCarrDn.get())
+        }
+        else if (buttonCarrDn.get()){
         	carriage.moveDn();
-        else
-        	carriage.stop();
+        }
+        else{
+        	//carriage.stop();
+        }
 
-        if (buttonRakeUp.get())
+        if (buttonRakeUp.get()){
         	rakeArm.moveUp();
-        else if (buttonRakeDn.get())
+        }
+        else if (buttonRakeDn.get()){
+        	
         	rakeArm.moveDn();
-        else
-        	rakeArm.stop();
+        }
+        else{
+        	//rakeArm.stop();
+        }
     } // end teleopPeriodic
 
     /**

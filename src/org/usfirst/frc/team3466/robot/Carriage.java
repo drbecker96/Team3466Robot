@@ -39,7 +39,6 @@ public class Carriage extends Subsystem {
 	}
 	public void stop() {
 		motor.set(0);
-		motor.set(0);
 	}
 
 	@Override

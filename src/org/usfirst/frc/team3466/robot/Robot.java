@@ -124,8 +124,8 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.arcadeDrive(-leftStick.getY(), -leftStick.getX()); 
-        	System.out.println(" "+leftStick.getY()+" :Y-Axis "+leftStick.getX()+" :X-Axis");
+        	myRobot.tankDrive(-leftStick.getY(), -leftStick.getTwist()); 
+        	System.out.println(" "+leftStick.getY()+" :Y-Axis "+leftStick.getTwist()+" :X-Axis");
 
         }
         if (buttonCarrUp.get()){ 
@@ -145,7 +145,7 @@ public class Robot extends IterativeRobot {
         	
         	rakeArm.moveDn();
         }
-        else if(!buttonRakeUp.get() && !buttonRakeDn.get() ){
+        else{
         	//rakeArm.stop(); //Unknown Errors: nullPointer Exception
         }
     } // end teleopPeriodic

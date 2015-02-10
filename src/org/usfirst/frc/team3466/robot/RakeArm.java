@@ -7,7 +7,7 @@ import org.usfirst.frc.team3466.robot.PortDefinitions;
 
 public class RakeArm extends Subsystem{
 	
-	public Jaguar motor;
+	public Jaguar motorRake;
 	private final double max_motor_speed = 1.0;
 	
     DigitalInput rakeDetTop;
@@ -17,34 +17,35 @@ public class RakeArm extends Subsystem{
 	
 	public RakeArm()
 	{
-		motor = new Jaguar(PortDefinitions.RakeMoveChannel);
+		motorRake = new Jaguar(PortDefinitions.RakeMoveChannel);
 		
 		rakeDetTop = new DigitalInput(PortDefinitions.RakeDetTopChannel);
 		rakeDetMid = new DigitalInput(PortDefinitions.RakeDetMidChannel);
 		rakeDetBtm = new DigitalInput(PortDefinitions.RakeDetBtmChannel);		
 	}
 	public void init() {
-	while(!rakeDetBtm.get())
+	/*while(!rakeDetBtm.get())
 		moveDn();
+	*/
 	}
 	
 	public void moveUp()
     {	// set rake motor direction to UP (IN)
     	if (!rakeDetTop.get()) 
-    		motor.set(max_motor_speed);
+    		motorRake.set(max_motor_speed);
     	else
-    		motor.stopMotor();
+    		motorRake.stopMotor();
     }
     
 	public void moveDn()
     {	// set rake motor direction to UP (IN)
     	if (!rakeDetTop.get()) 
-    		motor.set(-max_motor_speed);
+    		motorRake.set(-max_motor_speed);
     	else
-    		motor.stopMotor();
+    		motorRake.stopMotor();
     }
 	public void stop() {
-		motor.stopMotor();
+		motorRake.stopMotor();
 	}
 	@Override
 	protected void initDefaultCommand() { }	

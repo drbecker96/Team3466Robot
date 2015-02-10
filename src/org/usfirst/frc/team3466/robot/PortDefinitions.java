@@ -3,9 +3,32 @@ package org.usfirst.frc.team3466.robot;
 
 public class PortDefinitions {
 	
-	public static final int JoyStickLeftStick = 0;
-	public static final int JoyStickRightStick = 1;
+	//Contoller Definitions 
+	public static final int JoyStickDualAct = 0;
+	public static final int JoyStickAttack = 1;
+	public static final int JoyStickXbox = 2;
 	
+	//Xbox Axis Definitions
+	public static final int XboxAxisLX = 0;
+	public static final int XboxAxisLY = 1;
+	public static final int XboxAxisRX = 4;
+	public static final int XboxAxisRY = 5;
+	public static final int XboxTriggerL = 2;
+	public static final int XboxTriggerR = 3;
+	
+	//Dual Action Axis Definitions
+	public static final int DualActX = 0;
+	public static final int DualActY = 1;
+	public static final int DualActZ = 2;
+	public static final int DualActZR = 3;
+	
+	//Extreme 3D Axis Definitions
+	public static final int Ext3DX = 0;
+	public static final int Ext3DY = 1;
+	public static final int Ext3DZR = 2;
+	public static final int Ext3DSlide = 3;
+	
+	//Button Definitions
 	public static final int JSbuttonCarrUp = 1;
 	public static final int JSbuttonCarrDn = 2;
 	public static final int JSbuttonRakeUp = 3;

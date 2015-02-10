@@ -1,8 +1,8 @@
 package org.usfirst.frc.team3466.robot;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.buttons.*;
+
 import org.usfirst.frc.team3466.robot.*;
 
 /**
@@ -17,13 +17,15 @@ public class Robot extends IterativeRobot {
 	RakeArm rakeArm;
 	Carriage carriage;
     RobotDrive myRobot;
+    RobotDrive Carr;
     Joystick leftStick;
-    Joystick rightStick;
+   // Joystick rightStick;
     JoystickButton buttonCarrUp;
     JoystickButton buttonCarrDn;
     JoystickButton buttonRakeUp;
     JoystickButton buttonRakeMid;
     JoystickButton buttonRakeDn;
+    public int JoyaxisCount;
     
 	static int m_autoPeriodicLoop;
     final static double motorSpeed = 0.2;// during autonomous
@@ -39,10 +41,8 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	ntDrive = new NTDrive();
     	myRobot = new RobotDrive(ntDrive.motorL, ntDrive.motorR);
-
 //    	myRobot.setExpiration(0.1); - TODO - is this necessary?
-    	
-    	leftStick = new Joystick(PortDefinitions.JoyStickLeftStick);
+    	leftStick = new Joystick(PortDefinitions.JoyStickAttack);
     	//rightStick = new Joystick(PortDefinitions.JoyStickRightStick);
 
     	buttonCarrUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrUp);
@@ -50,9 +50,9 @@ public class Robot extends IterativeRobot {
     	buttonRakeUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeUp);
     	buttonRakeDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeDn);
     	
-    	RakeArm rakeArm = new RakeArm();
+    	rakeArm = new RakeArm();
     	rakeArm.init();
-    	Carriage carriage = new Carriage();
+    	carriage = new Carriage();
     	carriage.init();
 
       	configSwitch3 = new DigitalInput(9);	// Robot SW configuration switches
@@ -124,18 +124,18 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.tankDrive(-leftStick.getY(), -leftStick.getTwist()); 
-        	System.out.println(" "+leftStick.getY()+" :Y-Axis "+leftStick.getTwist()+" :X-Axis");
-
-        }
+        	myRobot.arcadeDrive(-leftStick.getRawAxis(PortDefinitions.Ext3DX), -leftStick.getRawAxis(PortDefinitions.Ext3DY)); 
+        	System.out.println(" "+leftStick.getRawAxis(PortDefinitions.Ext3DX)+" :Left-Axis "+leftStick.getRawAxis(PortDefinitions.Ext3DY)+" :Right-Axis");
+        	
+        	
         if (buttonCarrUp.get()){ 
         	carriage.moveUp();
         }
         else if (buttonCarrDn.get()){
         	carriage.moveDn();
         }
-        else if(!buttonCarrUp.get()&&!buttonCarrDn.get()){
-        	//carriage.stop(); //Unknown Errors: nullPointer Exception
+        else{
+        	carriage.stop(); //Unknown Errors: nullPointer Exception
         }
 
         if (buttonRakeUp.get()){
@@ -146,7 +146,8 @@ public class Robot extends IterativeRobot {
         	rakeArm.moveDn();
         }
         else{
-        	//rakeArm.stop(); //Unknown Errors: nullPointer Exception
+        	rakeArm.stop(); //Unknown Errors: nullPointer Exception
+        }
         }
     } // end teleopPeriodic
 
@@ -155,34 +156,6 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	System.out.println("We dont need no stinkin' test! - Our machine just works");
-    	if (isOperatorControl() && isEnabled()) {
-        	// Set the motor's output.
-        	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.tankDrive(-leftStick.getY(), -rightStick.getY()); 
-        	System.out.println(" "+-leftStick.getY()+" :Left "+-rightStick.getY()+" :Right");
-        }
-        if (buttonCarrUp.get()){ 
-        	carriage.moveUp();
-        }
-        else if (buttonCarrDn.get()){
-        	carriage.moveDn();
-        }
-        else if(!buttonCarrUp.get()&&!buttonCarrDn.get()){
-        	//carriage.stop(); //Unknown Errors: nullPointer Exception
-        }
-
-        if (buttonRakeUp.get()){
-        	rakeArm.moveUp();
-        }
-        else if (buttonRakeDn.get()){
-        	
-        	rakeArm.moveDn();
-        }
-        else if(!buttonRakeUp.get()&&!buttonRakeDn.get()){
-        	//rakeArm.stop(); //Unknown Errors: nullPointer Exception
-        } 
-        // end teleopPeriodic
-
     /**
      * This function is called periodically during test mode
      */

@@ -16,8 +16,8 @@ public class Robot extends IterativeRobot {
 	NTDrive ntDrive;
 	RakeArm rakeArm;
 	Carriage carriage;
-    RobotDrive myRobot;
-    RobotDrive Carr;
+    public static RobotDrive myRobot;
+    RoDrive Robo;
     Joystick leftStick;
    // Joystick rightStick;
     JoystickButton buttonCarrUp;
@@ -42,18 +42,20 @@ public class Robot extends IterativeRobot {
     	ntDrive = new NTDrive();
     	myRobot = new RobotDrive(ntDrive.motorL, ntDrive.motorR);
 //    	myRobot.setExpiration(0.1); - TODO - is this necessary?
-    	leftStick = new Joystick(PortDefinitions.JoyStickAttack);
+    	//leftStick = new Joystick(PortDefinitions.JoyStickAttack);
     	//rightStick = new Joystick(PortDefinitions.JoyStickRightStick);
 
-    	buttonCarrUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrUp);
-    	buttonCarrDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrDn);
-    	buttonRakeUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeUp);
-    	buttonRakeDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeDn);
+    	buttonCarrUp = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonCarrUp);
+    	buttonCarrDn = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonCarrDn);
+    	buttonRakeUp = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonRakeUp);
+    	buttonRakeDn = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonRakeDn);
     	
     	rakeArm = new RakeArm();
     	rakeArm.init();
     	carriage = new Carriage();
     	carriage.init();
+    	Robo = new RoDrive();
+    	Robo.init();
 
       	configSwitch3 = new DigitalInput(9);	// Robot SW configuration switches
     	configSwitch2 = new DigitalInput(8);
@@ -124,8 +126,9 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.arcadeDrive(-leftStick.getRawAxis(PortDefinitions.Ext3DX), -leftStick.getRawAxis(PortDefinitions.Ext3DY)); 
-        	System.out.println(" "+leftStick.getRawAxis(PortDefinitions.Ext3DX)+" :Left-Axis "+leftStick.getRawAxis(PortDefinitions.Ext3DY)+" :Right-Axis");
+        	//myRobot.arcadeDrive(-RoDrive.LY, RoDrive.RY);
+        	Robo.Drive(RoDrive.Drive);
+        	System.out.println(" "+RoDrive.LY+" :Left-Axis "+RoDrive.RY+" :Right-Axis");
         	
         	
         if (buttonCarrUp.get()){ 

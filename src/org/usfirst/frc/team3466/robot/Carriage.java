@@ -9,7 +9,7 @@ import org.usfirst.frc.team3466.robot.PortDefinitions;
 public class Carriage extends Subsystem {
 
 	Jaguar motorCarr;
-	private final double max_motor_speed = 0.2;
+	private final double max_motor_speed = 0.5;
 	
     DigitalInput carrDetTop;
     DigitalInput carrDetMid;

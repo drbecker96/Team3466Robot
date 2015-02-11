@@ -23,9 +23,13 @@ public class Robot extends IterativeRobot {
     JoystickButton buttonCarrUp;
     JoystickButton buttonCarrDn;
     JoystickButton buttonRakeUp;
-    JoystickButton buttonRakeMid;
     JoystickButton buttonRakeDn;
+    JoystickButton buttonRakeExtUp;
+    JoystickButton buttonRakeExtDn;
     public int JoyaxisCount;
+    Compressor compressor;
+    Solenoid A;
+    Solenoid B;
     
 	static int m_autoPeriodicLoop;
     final static double motorSpeed = 0.2;// during autonomous
@@ -42,20 +46,25 @@ public class Robot extends IterativeRobot {
     	ntDrive = new NTDrive();
     	myRobot = new RobotDrive(ntDrive.motorL, ntDrive.motorR);
 //    	myRobot.setExpiration(0.1); - TODO - is this necessary?
-    	//leftStick = new Joystick(PortDefinitions.JoyStickAttack);
+    	leftStick = new Joystick(PortDefinitions.JoyStickAttack);
     	//rightStick = new Joystick(PortDefinitions.JoyStickRightStick);
 
-    	buttonCarrUp = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonCarrUp);
-    	buttonCarrDn = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonCarrDn);
-    	buttonRakeUp = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonRakeUp);
-    	buttonRakeDn = new JoystickButton(RoDrive.port, PortDefinitions.JSbuttonRakeDn);
+    	buttonCarrUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrUp);
+    	buttonCarrDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrDn);
+    	buttonRakeUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeUp);
+    	buttonRakeDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeDn);
+    	buttonRakeExtUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtUp);
+    	buttonRakeExtDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtDn);
+    	
+    	A = new Solenoid(0);
+    	B = new Solenoid(1);
     	
     	rakeArm = new RakeArm();
     	rakeArm.init();
     	carriage = new Carriage();
     	carriage.init();
-    	Robo = new RoDrive();
-    	Robo.init();
+    	//Robo = new RoDrive();
+    	//Robo.init(m_ds);
 
       	configSwitch3 = new DigitalInput(9);	// Robot SW configuration switches
     	configSwitch2 = new DigitalInput(8);
@@ -68,7 +77,7 @@ public class Robot extends IterativeRobot {
     public void autonomousInit() {
 		m_autoPeriodicLoop = 0;
 		// add this line to keep the motor running without setting speed in every periodic
-		myRobot.setSafetyEnabled(false);		
+		myRobot.setSafetyEnabled(true);		
 		// I suspect this is not a legal thing to do at a competition
     }
     public void autonomousPeriodic() {
@@ -126,19 +135,21 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	//myRobot.arcadeDrive(-RoDrive.LY, RoDrive.RY);
-        	Robo.Drive(RoDrive.Drive);
-        	System.out.println(" "+RoDrive.LY+" :Left-Axis "+RoDrive.RY+" :Right-Axis");
+        	myRobot.arcadeDrive(leftStick.getRawAxis(PortDefinitions.Ext3DY), leftStick.getRawAxis(PortDefinitions.Ext3DX));
+        	//Robo.Drive(RoDrive.Drive);
+        	//System.out.println(" "+RoDrive.LY+" :Left-Axis "+RoDrive.RY+" :Right-Axis");
         	
         	
         if (buttonCarrUp.get()){ 
-        	carriage.moveUp();
+        	double rslt = leftStick.getRawAxis(PortDefinitions.Ext3DSlide);
+        	System.out.println("result : "+ rslt);
+        	carriage.moveUp(-rslt);
         }
         else if (buttonCarrDn.get()){
-        	carriage.moveDn();
+        	carriage.moveDn(-leftStick.getRawAxis(PortDefinitions.Ext3DSlide));
         }
         else{
-        	carriage.stop(); //Unknown Errors: nullPointer Exception
+        	carriage.stop();
         }
 
         if (buttonRakeUp.get()){
@@ -149,8 +160,21 @@ public class Robot extends IterativeRobot {
         	rakeArm.moveDn();
         }
         else{
-        	rakeArm.stop(); //Unknown Errors: nullPointer Exception
+        	rakeArm.stop(); 
         }
+        if(buttonRakeExtUp.get()){
+        	B.set(false);
+        	A.set(true);
+        }
+        else if(buttonRakeExtDn.get()){
+        	A.set(false);
+        	B.set(true);
+        }
+        /*else
+        {
+        A.set(false);
+        B.set(false);
+        }*/
         }
     } // end teleopPeriodic
 

@@ -11,7 +11,6 @@ public class RakeArm extends Subsystem{
 	private final double max_motor_speed = 1.0;
 	
     DigitalInput rakeDetTop;
-    DigitalInput rakeDetMid;
     DigitalInput rakeDetBtm;
     
 	
@@ -20,7 +19,7 @@ public class RakeArm extends Subsystem{
 		motorRake = new Jaguar(PortDefinitions.RakeMoveChannel);
 		
 		rakeDetTop = new DigitalInput(PortDefinitions.RakeDetTopChannel);
-		rakeDetMid = new DigitalInput(PortDefinitions.RakeDetMidChannel);
+
 		rakeDetBtm = new DigitalInput(PortDefinitions.RakeDetBtmChannel);		
 	}
 	public void init() {

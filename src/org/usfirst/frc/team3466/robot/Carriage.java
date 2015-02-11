@@ -12,7 +12,6 @@ public class Carriage extends Subsystem {
 	private final double max_motor_speed = 0.5;
 	
     DigitalInput carrDetTop;
-    DigitalInput carrDetMid;
     DigitalInput carrDetBtm;
 	
 	public Carriage()
@@ -20,7 +19,7 @@ public class Carriage extends Subsystem {
 		motorCarr = new Jaguar(PortDefinitions.CarrMoveChannel);
 
 		carrDetTop = new DigitalInput(PortDefinitions.CarrDetTopChannel);// all the way up
-    	carrDetMid = new DigitalInput(PortDefinitions.CarrDetMidChannel);// somewhere in the middle
+    	
     	carrDetBtm = new DigitalInput(PortDefinitions.CarrDetBtmChannel);// all the way down
  	}
 	
@@ -30,9 +29,12 @@ public class Carriage extends Subsystem {
 	System.out.println("Running: init Carriage");
 */
 	}
-	public void moveUp() {
-    	//if (!carrDetTop.get()){ 
-    		motorCarr.set(max_motor_speed);
+	public void moveUp(double Z) {
+    	//if (!carrDetTop.get()){
+		if(Z <= 0.5){
+			Z = 0.5;
+		}
+    		motorCarr.set(Z);
     System.out.println("Running: moveUp motor Carriage ");
     	/*}
     	else{
@@ -40,15 +42,20 @@ public class Carriage extends Subsystem {
     System.out.println("Running: moveUp motorStop Carriage ");
     	}*/
 	}
-	public void moveDn() {
-    	//if (!carrDetBtm.get()){ 
-    		motorCarr.set(-max_motor_speed);
+	public void moveDn(double Z) {
+    	if (!carrDetBtm.get()){ 
+    	if(Z <= 0.05){
+    		Z = 0.05;
+    	}else if(Z >= 0.35){
+    		Z = 0.35;
+    	}
+		motorCarr.set(-Z);
     System.out.println("Running: moveDn motor Carriage ");
-		/*}
+		}
     	else{
     		motorCarr.stopMotor();
     System.out.println("Running: moveDn motorStop Carriage ");
-    	}*/
+    	}
 	}
 	public void stop() {
 		motorCarr.stopMotor();

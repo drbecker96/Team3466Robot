@@ -33,6 +33,8 @@ public class PortDefinitions {
 	public static final int JSbuttonCarrDn = 2;
 	public static final int JSbuttonRakeUp = 3;
 	public static final int JSbuttonRakeDn = 4;
+	public static final int JSbuttonRakeExtUp = 11;
+	public static final int JSbuttonRakeExtDn = 12;
 
 	// INPUTS - roboRIO Digital I/O channels
 	public static final int CSconfifSwitch3 = 9;  // Robot SW configuration switches
@@ -40,12 +42,12 @@ public class PortDefinitions {
 	public static final int CSconfifSwitch1 = 7;
 
 	public static final int CarrDetTopChannel = 6;	// Carriage position detection
-	public static final int CarrDetMidChannel = 5;
+
 	public static final int CarrDetBtmChannel = 4;
 
-	public static final int RakeDetTopChannel = 3;	// Rake Arm position detection
-	public static final int RakeDetMidChannel = 2;
-	public static final int RakeDetBtmChannel = 1;
+	public static final int RakeDetTopChannel = 1;	// Rake Arm position detection
+
+	public static final int RakeDetBtmChannel = 3;
 	// UNUSED
 	public static final int UnusedInputChannel = 0;
 

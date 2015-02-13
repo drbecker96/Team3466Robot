@@ -28,8 +28,8 @@ public class Robot extends IterativeRobot {
     JoystickButton buttonRakeExtDn;
     public int JoyaxisCount;
     Compressor compressor;
-    Solenoid A;
-    Solenoid B;
+    Solenoid solRakeDn;
+    Solenoid solRakeUp;
     
 	static int m_autoPeriodicLoop;
     final static double motorSpeed = 0.2;// during autonomous
@@ -56,8 +56,8 @@ public class Robot extends IterativeRobot {
     	buttonRakeExtUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtUp);
     	buttonRakeExtDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtDn);
     	
-    	A = new Solenoid(0);
-    	B = new Solenoid(1);
+    	solRakeDn = new Solenoid(2);
+    	solRakeUp = new Solenoid(3);
     	
     	rakeArm = new RakeArm();
     	rakeArm.init();
@@ -91,7 +91,12 @@ public class Robot extends IterativeRobot {
 	    	    	else if (m_autoPeriodicLoop >= 100 && m_autoPeriodicLoop < 125)
 	    	    	    ntDrive.stop(); 
 	    	    	else if (m_autoPeriodicLoop >= 125 && m_autoPeriodicLoop < 175)
-	    	    		ntDrive.turnRight(motorSpeed);
+	    	    	{
+	    	    		if (configSwitch3.get())
+	    	    			ntDrive.turnLeft(motorSpeed);
+	    	    		else
+	    	    			ntDrive.turnRight(motorSpeed);
+	    	    	}
 	    	    	else // if (m_autoPeriodicLoop >= 175 && m_autoPeriodicLoop < 200)
 	    	    		ntDrive.stop();
     			} else {
@@ -100,7 +105,12 @@ public class Robot extends IterativeRobot {
 	    	    	else if (m_autoPeriodicLoop >= 300 && m_autoPeriodicLoop < 325)
 	    	    	    ntDrive.stop();
 	    	    	else if (m_autoPeriodicLoop >= 325 && m_autoPeriodicLoop < 375)
-	    	    		ntDrive.turnRight(motorSpeed);
+	    	    	{
+	    	    		if (configSwitch3.get())
+	    	    			ntDrive.turnLeft(motorSpeed);
+	    	    		else
+	    	    			ntDrive.turnRight(motorSpeed);
+	    	    	}
 	    	    	else // if (m_autoPeriodicLoop >= 375 && m_autoPeriodicLoop < 400)
 	    	    	    ntDrive.stop();
     			}
@@ -111,7 +121,12 @@ public class Robot extends IterativeRobot {
 			       	else if (m_autoPeriodicLoop >= 500 && m_autoPeriodicLoop < 525)
 			       		ntDrive.stop();
 			    	else if (m_autoPeriodicLoop >= 525 && m_autoPeriodicLoop < 575)
-			    	    ntDrive.turnRight(motorSpeed);
+			    	{
+	    	    		if (configSwitch3.get())
+	    	    			ntDrive.turnLeft(motorSpeed);
+	    	    		else
+	    	    			ntDrive.turnRight(motorSpeed);
+			    	}
 			    	else // if (m_autoPeriodicLoop >= 575 && m_autoPeriodicLoop < 600)
 			    	    ntDrive.stop();
     			} else {
@@ -120,7 +135,12 @@ public class Robot extends IterativeRobot {
 			    	else if (m_autoPeriodicLoop >= 700 && m_autoPeriodicLoop < 725)
 			    		ntDrive.stop();
 			    	else if (m_autoPeriodicLoop >= 725 && m_autoPeriodicLoop < 775)
-			    	    ntDrive.turnRight(motorSpeed);
+			    	{
+	    	    		if (configSwitch3.get())
+	    	    			ntDrive.turnLeft(motorSpeed);
+	    	    		else
+	    	    			ntDrive.turnRight(motorSpeed);
+			    	}
 			    	else 
 			    		ntDrive.stop();
     			}
@@ -163,17 +183,20 @@ public class Robot extends IterativeRobot {
         	rakeArm.stop(); 
         }
         if(buttonRakeExtUp.get()){
-        	B.set(false);
-        	A.set(true);
+        	solRakeUp.set(false);
+        	solRakeDn.set(true);
+			System.out.println("Running: moveUp RAKE Ext Arm ");
         }
         else if(buttonRakeExtDn.get()){
-        	A.set(false);
-        	B.set(true);
+        	solRakeDn.set(false);
+        	solRakeUp.set(true);
+			System.out.println("Running: moveDn RAKE Ext Arm");
+
         }
         /*else
         {
-        A.set(false);
-        B.set(false);
+	        solRakeDn.set(false);
+	        solRakeUp.set(false);
         }*/
         }
     } // end teleopPeriodic
@@ -183,9 +206,7 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
     	System.out.println("We dont need no stinkin' test! - Our machine just works");
-    /**
-     * This function is called periodically during test mode
-     */
+
     } 
     
 }

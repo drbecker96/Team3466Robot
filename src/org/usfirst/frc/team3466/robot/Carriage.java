@@ -31,35 +31,37 @@ public class Carriage extends Subsystem {
 	}
 	public void moveUp(double Z) {
     	//if (!carrDetTop.get()){
-		if(Z <= 0.5){
-			Z = 0.5;
-		}
+			if(Z <= 0.5){
+				Z = 0.5;
+			}
     		motorCarr.set(Z);
-    System.out.println("Running: moveUp motor Carriage ");
+    		System.out.println("Running: moveUp motor Carriage ");
     	/*}
     	else{
     		motorCarr.stopMotor();
-    System.out.println("Running: moveUp motorStop Carriage ");
+    		System.out.println("Running: moveUp motorStop Carriage ");
     	}*/
 	}
 	public void moveDn(double Z) {
-    	if (!carrDetBtm.get()){ 
-    	if(Z <= 0.05){
-    		Z = 0.05;
-    	}else if(Z >= 0.35){
-    		Z = 0.35;
-    	}
-		motorCarr.set(-Z);
-    System.out.println("Running: moveDn motor Carriage ");
+//    	if (!carrDetBtm.get())    		
+    	{ 
+		    if(Z <= 0.05){
+	    		Z = 0.05;
+	    	}else if(Z >= 0.35){
+	    		Z = 0.35;
+	    	}
+			motorCarr.set(-Z);
+			System.out.println("Running: moveDn motor Carriage ");
 		}
-    	else{
+/*    	else
+    	{
     		motorCarr.stopMotor();
-    System.out.println("Running: moveDn motorStop Carriage ");
-    	}
+    		System.out.println("Running: moveDn motorStop Carriage ");
+    	} */
 	}
 	public void stop() {
 		motorCarr.stopMotor();
-    System.out.println("Running: stop motorStop Carriage ");
+//		System.out.println("Running: stop motorStop Carriage ");
 	}
 
 	@Override

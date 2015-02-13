@@ -22,8 +22,8 @@ public class Robot extends IterativeRobot {
    // Joystick rightStick;
     JoystickButton buttonCarrUp;
     JoystickButton buttonCarrDn;
-    JoystickButton buttonRakeUp;
-    JoystickButton buttonRakeDn;
+    JoystickButton buttonRakeIn;
+    JoystickButton buttonRakeOut;
     JoystickButton buttonRakeExtUp;
     JoystickButton buttonRakeExtDn;
     public int JoyaxisCount;
@@ -51,8 +51,8 @@ public class Robot extends IterativeRobot {
 
     	buttonCarrUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrUp);
     	buttonCarrDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonCarrDn);
-    	buttonRakeUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeUp);
-    	buttonRakeDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeDn);
+    	buttonRakeIn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeIn);
+    	buttonRakeOut = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeOut);
     	buttonRakeExtUp = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtUp);
     	buttonRakeExtDn = new JoystickButton(leftStick, PortDefinitions.JSbuttonRakeExtDn);
     	
@@ -155,7 +155,7 @@ public class Robot extends IterativeRobot {
         if (isOperatorControl() && isEnabled()) {
         	// Set the motor's output.
         	// This takes a number from -1 (100% speed in reverse) to +1 (100% speed going forward)
-        	myRobot.arcadeDrive(leftStick.getRawAxis(PortDefinitions.Ext3DY), leftStick.getRawAxis(PortDefinitions.Ext3DX));
+        	myRobot.arcadeDrive(-leftStick.getRawAxis(PortDefinitions.Ext3DY), -leftStick.getRawAxis(PortDefinitions.Ext3DX));
         	//Robo.Drive(RoDrive.Drive);
         	//System.out.println(" "+RoDrive.LY+" :Left-Axis "+RoDrive.RY+" :Right-Axis");
         	
@@ -172,12 +172,12 @@ public class Robot extends IterativeRobot {
         	carriage.stop();
         }
 
-        if (buttonRakeUp.get()){
-        	rakeArm.moveUp();
+        if (buttonRakeIn.get()){
+        	rakeArm.moveIn();
         }
-        else if (buttonRakeDn.get()){
+        else if (buttonRakeOut.get()){
         	
-        	rakeArm.moveDn();
+        	rakeArm.moveOut();
         }
         else{
         	rakeArm.stop(); 

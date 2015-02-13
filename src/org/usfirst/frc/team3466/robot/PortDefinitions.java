@@ -31,8 +31,8 @@ public class PortDefinitions {
 	//Button Definitions
 	public static final int JSbuttonCarrUp = 1;
 	public static final int JSbuttonCarrDn = 2;
-	public static final int JSbuttonRakeUp = 3;
-	public static final int JSbuttonRakeDn = 4;
+	public static final int JSbuttonRakeIn = 3;
+	public static final int JSbuttonRakeOut = 5;
 	public static final int JSbuttonRakeExtUp = 11;
 	public static final int JSbuttonRakeExtDn = 12;
 

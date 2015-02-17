@@ -14,10 +14,10 @@ import org.usfirst.frc.team3466.robot.*;
  */
 public class Robot extends IterativeRobot {
 	NTDrive ntDrive;
-	RakeArm rakeArm;
+//	RakeArm rakeArm;
 	Carriage carriage;
     public static RobotDrive myRobot;
-    RoDrive Robo;
+//  RoDrive Robo;
     Joystick leftStick;
     JoystickButton buttonCarrUp;
     JoystickButton buttonCarrDn;
